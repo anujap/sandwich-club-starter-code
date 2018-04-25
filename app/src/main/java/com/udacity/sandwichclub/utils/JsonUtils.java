@@ -1,5 +1,7 @@
 package com.udacity.sandwichclub.utils;
 
+import android.util.Log;
+
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
@@ -11,6 +13,7 @@ import java.util.List;
 
 public class JsonUtils {
 
+    // constants
     private static final String SANDWICH_NAME = "name";
     private static final String SANDWICH_MAIN_NAME = "mainName";
     private static final String SANDWICH_ALSO_KNOWN_AS = "alsoKnownAs";
@@ -61,7 +64,11 @@ public class JsonUtils {
         return sandwichObj;
     }
 
-    // function called to convert JsonArray to arraylist<String>
+    /**
+     * function called to convert JsonArray to arraylist<String>
+     *
+     * Reference:- https://stackoverflow.com/questions/17037340/converting-jsonarray-to-arraylist
+     */
     private static List<String> convertArrayToList(JSONArray jsonArray) {
 
         List<String> arrayList = new ArrayList<String>();

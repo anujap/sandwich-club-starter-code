@@ -2,8 +2,12 @@ package com.udacity.sandwichclub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -43,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -56,7 +60,61 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        TextView lblAlsoKnownAs = (TextView) findViewById(R.id.also_known_label);
+        TextView lblPlaceOfOrigin = (TextView) findViewById(R.id.place_of_origin_label);
+        TextView lblDescription = (TextView) findViewById(R.id.description_label);
+        TextView lblIngredients = (TextView) findViewById(R.id.ingredients_label);
 
+        TextView tvAlsoKnowAs = (TextView) findViewById(R.id.also_known_tv);
+        TextView tvOrigin = (TextView) findViewById(R.id.origin_tv);
+        TextView tvDescription = (TextView) findViewById(R.id.description_tv);
+        TextView tvIngredients = (TextView) findViewById(R.id.ingredients_tv);
+
+        // AlsoKnowAs
+        if(sandwich.getAlsoKnownAs().isEmpty()) {
+            lblAlsoKnownAs.setVisibility(View.GONE);
+            tvAlsoKnowAs.setVisibility(View.GONE);
+        }
+        else {
+            lblAlsoKnownAs.setVisibility(View.VISIBLE);
+            tvAlsoKnowAs.setVisibility(View.VISIBLE);
+            tvAlsoKnowAs.setText(TextUtils.join(System.getProperty("line.separator"), sandwich.getAlsoKnownAs()));
+        }
+
+        // PlaceOfOrigin
+        if(sandwich.getPlaceOfOrigin().isEmpty()) {
+            lblPlaceOfOrigin.setVisibility(View.GONE);
+            tvOrigin.setVisibility(View.GONE);
+        }
+        else {
+            lblPlaceOfOrigin.setVisibility(View.VISIBLE);
+            tvOrigin.setVisibility(View.VISIBLE);
+            tvOrigin.setText(sandwich.getPlaceOfOrigin());
+        }
+
+        // Description
+        if(sandwich.getDescription().isEmpty()) {
+            lblDescription.setVisibility(View.GONE);
+            tvDescription.setVisibility(View.GONE);
+        }
+        else {
+            lblDescription.setVisibility(View.VISIBLE);
+            tvDescription.setVisibility(View.VISIBLE);
+            tvDescription.setText(sandwich.getDescription());
+        }
+
+        // Ingredients
+        if(sandwich.getIngredients().isEmpty()) {
+            lblIngredients.setVisibility(View.GONE);
+            tvIngredients.setVisibility(View.GONE);
+        }
+        else {
+            lblIngredients.setVisibility(View.VISIBLE);
+            tvIngredients.setVisibility(View.VISIBLE);
+            tvIngredients.setText(TextUtils.join(System.getProperty("line.separator"), sandwich.getIngredients()));
+        }
     }
+
+    // TextUtils.join - Reference - https://stackoverflow.com/questions/25727993/android-logging-strings-with-newline-character-or-br
 }
