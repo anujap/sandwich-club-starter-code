@@ -1,7 +1,5 @@
 package com.udacity.sandwichclub.utils;
 
-import android.util.Log;
-
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
